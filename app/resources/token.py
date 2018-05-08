@@ -17,6 +17,7 @@ import requests
 from app.models import User
 from app import db
 from app.utils.fields.user import user_single_fields
+from config import Config
 class Tokens(Resource):
     def post(self):
         """POST /token?code=xxx&redirect_uri=xxx
@@ -42,10 +43,10 @@ class Tokens(Resource):
                 'message': 'params missing'
             }
 
-        token_response = requests.post('http://127.0.0.1/sso-v2/api/', data={
+        token_response = requests.post(Config.SSO_URL_OAUTH, data={
             'service': 'App.Oauth.GetAccessToken',
-            'appid': '12345678',
-            'appsecret': '12345678',
+            'appid': Config.APP_ID,
+            'appsecret': Config.APP_SECRET,
             'code': code
         })
         response_data = token_response.json()['data']
@@ -53,7 +54,7 @@ class Tokens(Resource):
         expires_in = response_data['expires_in']
 
         # get user_id by access_token
-        user_response = requests.post('http://127.0.0.1/sso-v2/api/', data={
+        user_response = requests.post(Config.SSO_URL_OAUTH, data={
             'service': 'App.Oauth.GetUserInfo',
             'access_token': access_token,
             'types': 'id,name,username,stu_num'

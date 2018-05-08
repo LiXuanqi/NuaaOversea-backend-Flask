@@ -1,0 +1,8 @@
+pip
+uwsgi
+Flask
+Flask-Redis
+Flask-RESTful
+Flask-SQLAlchemy
+requests
+pymysql

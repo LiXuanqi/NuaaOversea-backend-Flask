@@ -10,3 +10,7 @@ class Config(object):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SECRET_KEY = os.urandom(24) # For session encode.
     REDIS_URL = "redis://:root@redis:6379/0"
+    # sso-v2
+    SSO_URL_OAUTH = "http://127.0.0.1/sso-v2/api/"
+    APP_ID = "12345678"
+    APP_SECRET = "12345678"
