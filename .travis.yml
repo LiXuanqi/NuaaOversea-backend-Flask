@@ -16,6 +16,6 @@ before_deploy:
 deploy:
   provider: script
   skip_cleanup: true
-  script: ssh $user@$ip && cd ~/docker/NuaaOversea-docker/web/code && git pull
+  script: ssh $user@$ip 'cd ~/docker/NuaaOversea-docker/web/code && git pull'
   on:
     branch: master
