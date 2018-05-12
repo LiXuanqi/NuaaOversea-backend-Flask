@@ -14,3 +14,4 @@ class Config(object):
     SSO_URL_OAUTH = "http://127.0.0.1/sso-v2/api/"
     APP_ID = "12345678"
     APP_SECRET = "12345678"
+    ROOT_URL = "/oversea/api"
