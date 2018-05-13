@@ -66,6 +66,7 @@ class Auth():
         user_info = User.query.filter_by(username=username).first()
         if (user_info is None):
             return {
+                'status': False,
                 'msg': 'user is not existed.'
             }
         else:
@@ -75,7 +76,10 @@ class Auth():
                 User.update(User)
                 token = self.encode_auth_token(user_info.id, login_time)
                 return {
-                    'token': token.decode(),
+                    'status': True,
+                    'data': {
+                        'token': token.decode()
+                    },
                     'msg': 'Login succeed'
                 }
             else:
