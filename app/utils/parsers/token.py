@@ -16,13 +16,13 @@ from flask_restful import reqparse
 login_post_parser = reqparse.RequestParser()
 
 login_post_parser.add_argument(
-    'redirect_uri',
-    dest='redirect_uri',
-    required=False,
+    'username',
+    dest='username',
+    required=True,
 )
 
 login_post_parser.add_argument(
-    'code',
-    dest='code',
-    required=False,
+    'password',
+    dest='password',
+    required=True,
 )

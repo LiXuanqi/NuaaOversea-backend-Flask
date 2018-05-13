@@ -1,3 +1,6 @@
+from sqlalchemy.exc import SQLAlchemyError
+from werkzeug.security import generate_password_hash, check_password_hash
+
 from app import db
 
 # When you use firstly, you should import your models and use 'db.create_all()' in your python shell.
@@ -50,13 +53,29 @@ class Application(db.Model):
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(64))
-    stu_num = db.Column(db.String(32))
-    username = db.Column(db.String(64), index=True, nullable=False)
+    username = db.Column(db.String(64),unique=True, index=True, nullable=False)
+    password = db.Column(db.String(250))
+    email = db.Column(db.String(250), nullable=True)
     role = db.Column(db.Enum('root', 'admin', 'stuff', 'student'))
     applicant_id = db.Column(db.Integer, db.ForeignKey('applicant.id'))
+    login_time = db.Column(db.Integer)
+    def __init__(self, username, password, email):
+        self.username = username
+        self.password = password
+        self.email = email
     def __repr__(self):
         return '<Account {}>'.format(self.username)
+    def set_password(self, password):
+        return generate_password_hash(password)
+    def check_password(self, hash, password):
+        return check_password_hash(hash, password)
+    def get(self, id):
+        return self.query.filter_by(id=id).first()
+    def add(self, user):
+        db.session.add(user)
+        return session_commit()
+    def update(self):
+        return session_commit()
 
 class Tag(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -84,3 +103,11 @@ class Recommendation(db.Model):
     name = db.Column(db.String(64), nullable=False, index=True)
     applicants = db.relationship('Applicant', backref='recommendation', lazy='dynamic')
     value = db.Column(db.Integer)
+
+def session_commit():
+    try:
+        db.session.commit()
+    except SQLAlchemyError as e:
+        db.session.rollback()
+        reason = str(e)
+        return reason

@@ -20,7 +20,7 @@ from app.resources.application import Applications, Application
 from app.resources.applicant import Applicants, Applicant
 
 from app.resources.user import Users
-from app.resources.token import Tokens, Token
+from app.resources.token import Tokens
 from app.resources.search import ApplicationSearch
 
 from app.resources.tag import Tags
@@ -36,7 +36,6 @@ api.add_resource(Applicants, Config.ROOT_URL + '/applicants')
 api.add_resource(Applicant, Config.ROOT_URL + '/applicants/<applicant_id>')
 
 api.add_resource(Tokens, Config.ROOT_URL + '/tokens')
-api.add_resource(Token, Config.ROOT_URL + '/tokens/<access_token>')
 
 api.add_resource(Users, Config.ROOT_URL + '/users')
 
