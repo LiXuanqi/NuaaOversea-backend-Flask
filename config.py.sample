@@ -1,14 +1,14 @@
 import os
 basedir = os.path.abspath(os.path.dirname(__file__))
-
+env = os.environ
 class Config(object):
     ############### YOU SHOULD CONFIGURE ###############
 
-    DB_USER = 'nuaa'
-    DB_PASSWORD = 'nuaa'
-    DB_DATABASE = 'oversea'
+    DB_USER = env['DB_USER']
+    DB_PASSWORD = env['DB_PASSWORD']
+    DB_DATABASE = env['DB_DATABASE']
     DB_URL = 'db:3306'
-    ROOT_URL = "/oversea/api"
+    ROOT_URL = env['ROOT_URL']
 
     #####################################################
     SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://{0}:{1}@{2}/{3}?charset=utf8'.format(
