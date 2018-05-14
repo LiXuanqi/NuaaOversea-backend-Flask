@@ -33,8 +33,6 @@ class Applicants(Resource):
 
         result = create_applicant(
             applicant_args.user_id,
-            applicant_args.name,
-            applicant_args.student_id,
             applicant_args.college,
             applicant_args.major,
             applicant_args.gpa,
@@ -48,8 +46,7 @@ class Applicants(Resource):
             applicant_args.gre_writing,
             applicant_args.research_id,
             applicant_args.project_id,
-            applicant_args.recommendation_id,
-            applicant_args.email
+            applicant_args.recommendation_id
         )
         return result
 
@@ -67,8 +64,6 @@ class Applicant(Resource):
 
         result = update_applicant(
             applicant_id,
-            applicant_args.name,
-            applicant_args.student_id,
             applicant_args.college,
             applicant_args.major,
             applicant_args.gpa,
@@ -82,8 +77,7 @@ class Applicant(Resource):
             applicant_args.gre_writing,
             applicant_args.research_id,
             applicant_args.project_id,
-            applicant_args.recommendation_id,
-            applicant_args.email
+            applicant_args.recommendation_id
         )
 
         return result

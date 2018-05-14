@@ -17,8 +17,6 @@ from flask_restful import fields
 
 applicant_single_fields = {
     'id': fields.Integer,
-    'name': fields.String,
-    'student_id': fields.String,
     'college': fields.String,
     'language_type': fields.String,
     'language_reading': fields.Integer,
@@ -42,8 +40,6 @@ applicants_fields = {
 # for get /applicant/<application_id>
 applicant_detail_fields = {
     'id': fields.Integer,
-    'name': fields.String,
-    'student_id': fields.String,
     'college': fields.String,
     'major': fields.String,
     'gpa': fields.Float,

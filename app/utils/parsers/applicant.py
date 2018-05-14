@@ -23,20 +23,6 @@ applicant_post_parser.add_argument(
 )
 
 applicant_post_parser.add_argument(
-    'name',
-    dest='name',
-    type=str,
-    required=True,
-)
-
-applicant_post_parser.add_argument(
-    'student_id',
-    dest='student_id',
-    type=str,
-    required=True,
-)
-
-applicant_post_parser.add_argument(
     'college',
     dest='college',
     type=str,
@@ -134,30 +120,9 @@ applicant_post_parser.add_argument(
     required=True,
 )
 
-applicant_post_parser.add_argument(
-    'email',
-    dest='email',
-    type=str,
-    required=False,
-)
-
 # -------- applicant update parser --------
 
 applicant_put_parser = reqparse.RequestParser()
-
-applicant_put_parser.add_argument(
-    'name',
-    dest='name',
-    type=str,
-    required=True,
-)
-
-applicant_put_parser.add_argument(
-    'student_id',
-    dest='student_id',
-    type=str,
-    required=True,
-)
 
 applicant_put_parser.add_argument(
     'college',

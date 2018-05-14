@@ -50,7 +50,6 @@ def create_application(country_id, university, major, degree, term, result, appl
     db.session.add(application)
     db.session.commit()
     return {
-        'success': 1,
         'id': application.id
     }
 

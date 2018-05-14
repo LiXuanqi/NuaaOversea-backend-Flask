@@ -7,8 +7,6 @@ from app import db
 
 class Applicant(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(64), index=True, nullable=False)
-    student_id = db.Column(db.String(16), unique=True, nullable=False)
     college = db.Column(db.String(30))
     major = db.Column(db.String(30))
     gpa = db.Column(db.Float('2,1'))
@@ -24,7 +22,6 @@ class Applicant(db.Model):
     project_id = db.Column(db.Integer, db.ForeignKey('project.id'), nullable=False)
     recommendation_id = db.Column(db.Integer, db.ForeignKey('recommendation.id'), nullable=False)
     applications = db.relationship('Application', backref='applicant', lazy='dynamic')
-    email = db.Column(db.String(128), nullable=True)
     user_id = db.relationship('User', backref='applicant', uselist=False)
     def __repr__(self):
         return '<Applicant {}>'.format(self.username)

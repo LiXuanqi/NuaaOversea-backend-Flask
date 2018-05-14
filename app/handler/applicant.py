@@ -18,8 +18,6 @@ def get_all_applicants():
     return applicants
 
 def create_applicant(user_id,
-                    name,
-                    student_id,
                     college,
                     major,
                     gpa,
@@ -33,13 +31,10 @@ def create_applicant(user_id,
                     gre_writing,
                     research_id,
                     project_id,
-                    recommendation_id,
-                    email=None):
+                    recommendation_id):
     # TODO: add the authentication of power.
     # TODO: verify the repeation of datas.
     applicant = Applicant(
-        name=name,
-        student_id=student_id,
         college=college,
         major=major,
         gpa=gpa,
@@ -53,8 +48,7 @@ def create_applicant(user_id,
         gre_writing=gre_writing,
         research_id=research_id,
         project_id=project_id,
-        recommendation_id=recommendation_id,
-        email=email
+        recommendation_id=recommendation_id
     )
     db.session.add(applicant)
     db.session.commit()
@@ -77,8 +71,6 @@ def get_applicant_by_id(applicant_id):
     return applicant
 
 def update_applicant(applicant_id,
-                    name,
-                    student_id,
                     college,
                     major,
                     gpa,
@@ -92,14 +84,11 @@ def update_applicant(applicant_id,
                     gre_writing,
                     research_id,
                     project_id,
-                    recommendation_id,
-                    email=None):
+                    recommendation_id):
     # TODO: update the applicant(handler)
 
     applicant = Applicant.query.filter_by(id=applicant_id).first();
 
-    applicant.name = name
-    applicant.student_id = student_id
     applicant.college = college
     applicant.major = major
     applicant.gpa = gpa
@@ -114,7 +103,6 @@ def update_applicant(applicant_id,
     applicant.research_id = research_id
     applicant.project_id = project_id
     applicant.recommendation_id = recommendation_id
-    applicant.email = email
 
     db.session.commit()
 

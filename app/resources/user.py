@@ -41,7 +41,8 @@ class Users(Resource):
                     'id': user.id,
                     'username': user.username,
                     'email': user.email,
-                    'login_time': user.login_time
+                    'login_time': user.login_time,
+                    'applicant_id': user.applicant_id
                 },
                 'msg': 'succeed'
             }

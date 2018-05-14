@@ -38,7 +38,6 @@ class Applications(Resource):
         applications = get_all_applications()
         return {'applications': applications}
 
-    @marshal_with(pt_fields)
     def post(self):
         application_args = application_post_parser.parse_args()
         result = create_application(
