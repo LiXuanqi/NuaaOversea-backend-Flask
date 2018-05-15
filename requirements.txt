@@ -7,3 +7,6 @@ requests
 pymysql
 pytest
 pyjwt
+python-dotenv
+pytest_mysql
+coverage
