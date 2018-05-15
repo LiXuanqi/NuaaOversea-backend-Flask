@@ -11,7 +11,9 @@
 """
 
 from app.models import Application, Tag, Applicant
-from app import db
+
+from app.models import db
+
 from app.utils.auto_tags import auto_tags
 def get_all_applications():
     applications = Application.query.all()

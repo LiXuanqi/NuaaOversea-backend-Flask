@@ -11,7 +11,8 @@
 """
 
 from app.models import Applicant, User
-from app import db
+
+from app.models import db
 
 def get_all_applicants():
     applicants = Applicant.query.all()

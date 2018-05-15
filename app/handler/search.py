@@ -11,7 +11,6 @@
 """
 from sqlalchemy import or_
 
-from app import db
 from app.models import Application, Tag, Country
 
 def search_application(query_args):
