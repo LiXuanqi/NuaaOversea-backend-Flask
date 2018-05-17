@@ -10,7 +10,7 @@
 
 """
 
-from flask_restful import Resource, marshal_with
+from flask_restful import Resource, marshal_with, abort
 
 from app.handler.application import get_all_applications, create_application, get_applications_by_applicantid, get_applications_by_university
 from app.handler.application import get_application_by_id, update_application, rm_application
@@ -65,8 +65,8 @@ class Application(Resource):
         result = update_application()
         return result
 
-    @marshal_with(deleted_fields)
     def delete(self, application_id):
         result = rm_application(application_id)
-        return result
+        if result is True:
+            return ''
 

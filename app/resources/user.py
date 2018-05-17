@@ -22,7 +22,7 @@ class Users(Resource):
         """
         # TODO: while the user that wanted to be register is existed, should throw error.
         args = user_post_parser.parse_args()
-        res = register_user(args['username'], args['password'], args['email']);
+        res = register_user(args['username'], args['password'], args['email'], args['will_contact']);
         return res
 
     def get(self):

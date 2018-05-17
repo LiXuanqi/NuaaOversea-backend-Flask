@@ -26,9 +26,9 @@ applicant_single_fields = {
     'gre_verbal': fields.Integer,
     'gre_quantitative': fields.Integer,
     'gre_writing': fields.Integer,
-    'research': fields.String,
-    'project': fields.String,
-    'recommendation': fields.String,
+    'research': fields.String(attribute='research.name'),
+    'project': fields.String(attribute='project.name'),
+    'recommendation': fields.String(attribute='recommendation.name'),
     'email': fields.String,
 }
 
@@ -51,8 +51,8 @@ applicant_detail_fields = {
     'gre_verbal': fields.Integer,
     'gre_quantitative': fields.Integer,
     'gre_writing': fields.Integer,
-    'research': fields.String,
-    'project': fields.String,
-    'recommendation': fields.String,
+    'research': fields.String(attribute='research.name'),
+    'project': fields.String(attribute='project.name'),
+    'recommendation': fields.String(attribute='recommendation.name'),
     'email': fields.String,
 }

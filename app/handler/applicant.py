@@ -62,7 +62,6 @@ def create_applicant(user_id,
     db.session.commit()
 
     return {
-        'success': 1,
         'id': applicant.id
     }
 
@@ -108,7 +107,6 @@ def update_applicant(applicant_id,
     db.session.commit()
 
     return {
-        'success': 1,
         'id': applicant.id
     }
 

@@ -42,3 +42,9 @@ user_post_parser.add_argument(
     dest='email',
     required=False,
 )
+user_post_parser.add_argument(
+    'will_contact',
+    dest='will_contact',
+    required=True,
+    type=bool
+)

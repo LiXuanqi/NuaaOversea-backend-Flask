@@ -27,7 +27,6 @@ class Applicants(Resource):
         applicants = get_all_applicants()
         return {'applicants': applicants}
 
-    @marshal_with(pt_fields)
     def post(self):
         applicant_args = applicant_post_parser.parse_args()
 
@@ -57,7 +56,6 @@ class Applicant(Resource):
         return get_applicant_by_id(applicant_id)
 
     # TODO: update the application.
-    @marshal_with(pt_fields)
     def put(self, applicant_id):
 
         applicant_args = applicant_put_parser.parse_args()

@@ -55,10 +55,12 @@ class User(db.Model):
     role = db.Column(db.Enum('root', 'admin', 'stuff', 'student'))
     applicant_id = db.Column(db.Integer, db.ForeignKey('applicant.id'))
     login_time = db.Column(db.Integer)
-    def __init__(self, username, password, email):
+    will_contact = db.Column(db.Boolean)
+    def __init__(self, username, password, email, will_contact):
         self.username = username
         self.password = password
         self.email = email
+        self.will_contact = will_contact
     def __repr__(self):
         return '<Account {}>'.format(self.username)
     def set_password(self, password):

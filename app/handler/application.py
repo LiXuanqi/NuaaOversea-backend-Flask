@@ -70,5 +70,5 @@ def rm_application(application_id):
     if application is not None:
         db.session.delete(application)
         db.session.commit()
-        return {'success': 1}
+        return True
 
