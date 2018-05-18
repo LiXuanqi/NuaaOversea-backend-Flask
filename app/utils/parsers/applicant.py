@@ -228,3 +228,98 @@ applicant_put_parser.add_argument(
     type=str,
     required=False,
 )
+
+# patch
+
+
+applicant_patch_parser = reqparse.RequestParser()
+
+applicant_patch_parser.add_argument(
+    'college',
+    dest='college',
+    type=str,
+)
+
+applicant_patch_parser.add_argument(
+    'major',
+    dest='major',
+    type=str,
+)
+
+applicant_patch_parser.add_argument(
+    'gpa',
+    dest='gpa',
+    type=float,
+)
+
+applicant_patch_parser.add_argument(
+    'language_type',
+    dest='language_type',
+    type=str,
+)
+
+applicant_patch_parser.add_argument(
+    'language_reading',
+    dest='language_reading',
+    type=int,
+)
+
+applicant_patch_parser.add_argument(
+    'language_listening',
+    dest='language_listening',
+    type=int,
+)
+
+applicant_patch_parser.add_argument(
+    'language_speaking',
+    dest='language_speaking',
+    type=int,
+)
+
+applicant_patch_parser.add_argument(
+    'language_writing',
+    dest='language_writing',
+    type=int,
+)
+
+applicant_patch_parser.add_argument(
+    'gre_verbal',
+    dest='gre_verbal',
+    type=int,
+)
+
+applicant_patch_parser.add_argument(
+    'gre_quantitative',
+    dest='gre_quantitative',
+    type=int,
+)
+
+applicant_patch_parser.add_argument(
+    'gre_writing',
+    dest='gre_writing',
+    type=float,
+)
+
+applicant_patch_parser.add_argument(
+    'research_id',
+    dest='research_id',
+    type=str,
+)
+
+applicant_patch_parser.add_argument(
+    'project_id',
+    dest='project_id',
+    type=str,
+)
+
+applicant_patch_parser.add_argument(
+    'recommendation_id',
+    dest='recommendation_id',
+    type=str,
+)
+
+applicant_patch_parser.add_argument(
+    'email',
+    dest='email',
+    type=str,
+)

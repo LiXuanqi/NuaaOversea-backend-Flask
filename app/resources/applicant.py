@@ -13,13 +13,14 @@
 
 from flask_restful import Resource, request, marshal_with
 #
-from app.handler.applicant import get_all_applicants, create_applicant
+from app.handler.applicant import get_all_applicants, create_applicant, patch_applicant
 from app.handler.applicant import get_applicant_by_id, update_applicant, rm_applicant
 
 from app.utils.fields.common import pt_fields, deleted_fields
 from app.utils.fields.applicant import applicants_fields, applicant_detail_fields
 
-from app.utils.parsers.applicant import applicant_post_parser, applicant_put_parser
+from app.utils.parsers.applicant import applicant_post_parser, applicant_put_parser, applicant_patch_parser
+
 
 class Applicants(Resource):
     @marshal_with(applicants_fields)
@@ -84,3 +85,26 @@ class Applicant(Resource):
     def delete(self, applicant_id):
         result = rm_applicant(applicant_id)
         return result
+
+    @marshal_with(applicant_detail_fields)
+    def patch(self, applicant_id):
+        args = applicant_patch_parser.parse_args()
+        result = patch_applicant(
+            applicant_id,
+            args.college,
+            args.major,
+            args.gpa,
+            args.language_type,
+            args.language_reading,
+            args.language_listening,
+            args.language_speaking,
+            args.language_writing,
+            args.gre_verbal,
+            args.gre_quantitative,
+            args.gre_writing,
+            args.research_id,
+            args.project_id,
+            args.recommendation_id
+        )
+
+        return result;

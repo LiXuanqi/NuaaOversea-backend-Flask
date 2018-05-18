@@ -58,11 +58,19 @@ class Application(Resource):
         application = get_application_by_id(application_id)
         return application
 
-    # TODO: update the application.
-    @marshal_with(pt_fields)
     def put(self, application_id):
         application_args = application_put_parser.parse_args()
-        result = update_application()
+        result = update_application(
+            application_id,
+            application_args.country_id,
+            application_args.university,
+            application_args.major,
+            application_args.degree,
+            application_args.term,
+            application_args.result,
+            application_args.applicant_id,
+            application_args.is_transfer
+        )
         return result
 
     def delete(self, application_id):

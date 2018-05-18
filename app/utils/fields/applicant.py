@@ -29,7 +29,6 @@ applicant_single_fields = {
     'research': fields.String(attribute='research.name'),
     'project': fields.String(attribute='project.name'),
     'recommendation': fields.String(attribute='recommendation.name'),
-    'email': fields.String,
 }
 
 applicants_fields = {
@@ -54,5 +53,4 @@ applicant_detail_fields = {
     'research': fields.String(attribute='research.name'),
     'project': fields.String(attribute='project.name'),
     'recommendation': fields.String(attribute='recommendation.name'),
-    'email': fields.String,
 }

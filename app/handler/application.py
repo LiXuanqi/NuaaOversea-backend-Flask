@@ -61,9 +61,29 @@ def get_application_by_id(application_id):
     print(application.tags)
     return application
 
-def update_application():
-    # TODO: update the application(handler)
-    pass
+def update_application(application_id, country_id, university, major, degree, term, result, applicant_id, is_transfer):
+    application = Application.query.filter_by(id=application_id).first();
+
+    application.country_id = country_id
+    application.university = university
+    application.major = major
+    application.degree = degree
+    application.term = term
+    application.result = result
+    application.applicant_id = applicant_id
+
+    # delete "is_transfer" tag.
+    transfer_tag = Tag.query.filter_by(name="转专业").first()
+    if is_transfer is False:
+        application.tags.remove(transfer_tag)
+    else:
+        application.tags.append(transfer_tag)
+
+    db.session.commit()
+
+    return {
+        'id': application.id
+    }
 
 def rm_application(application_id):
     application = Application.query.filter_by(id=application_id).first()
