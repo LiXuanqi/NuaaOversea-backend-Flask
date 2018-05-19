@@ -11,7 +11,7 @@
 """
 
 
-from flask_restful import Resource, request, marshal_with
+from flask_restful import Resource, request, marshal_with, marshal
 #
 from app.handler.applicant import get_all_applicants, create_applicant, patch_applicant
 from app.handler.applicant import get_applicant_by_id, update_applicant, rm_applicant
@@ -51,10 +51,14 @@ class Applicants(Resource):
         return result
 
 class Applicant(Resource):
-    @marshal_with(applicant_detail_fields)
+    # @marshal_with(applicant_detail_fields)
     # FIXME: when call the applicant that does not exist, it should return error message.
     def get(self, applicant_id):
-        return get_applicant_by_id(applicant_id)
+        result = get_applicant_by_id(applicant_id)
+        if result is None:
+            return {}
+        else:
+            return marshal(result, applicant_detail_fields), 200
 
     # TODO: update the application.
     def put(self, applicant_id):

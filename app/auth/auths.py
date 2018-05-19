@@ -66,8 +66,7 @@ class Auth():
         user_info = User.query.filter_by(username=username).first()
         if (user_info is None):
             return {
-                'status': False,
-                'msg': 'user is not existed.'
+                'error': '该用户不存在!'
             }
         else:
             if (User.check_password(User, user_info.password, password)):
@@ -76,16 +75,11 @@ class Auth():
                 User.update(User)
                 token = self.encode_auth_token(user_info.id, login_time)
                 return {
-                    'status': True,
-                    'data': {
-                        'token': token.decode()
-                    },
-                    'msg': 'Login succeed'
+                    'token': token.decode()
                 }
             else:
                 return {
-                    'status': False,
-                    'msg': 'wrong password'
+                    'error': '密码错误!'
                 }
 
     def identify(self, auth_token):
@@ -94,20 +88,16 @@ class Auth():
             user = User.get(User, payload['data']['id'])
             if (user is None):
                 result = {
-                    'status': False,
-                    'msg': 'user does not exist'
+                    'error': 'user does not exist'
                 }
             else:
                 if (user.login_time == payload['data']['login_time']):
                     result = {
-                        'status': True,
-                        'msg': 'succeed',
                         'user_id': user.id
                     }
                 else:
                     result = {
-                        'status': False,
-                        'msg': 'token is expired'
+                        'error': 'token is expired'
                     }
         else:
             result = {

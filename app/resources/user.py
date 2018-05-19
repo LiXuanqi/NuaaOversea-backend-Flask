@@ -33,19 +33,19 @@ class Users(Resource):
 
         args = user_get_parser.parse_args()
         result = Auth.identify(Auth, args['token'])
-        if (result['status'] and result['user_id']):
+        if (result['user_id']):
             user = User.get(User, result['user_id'])
             result = {
-                'status': True,
-                'data': {
-                    'id': user.id,
-                    'username': user.username,
-                    'email': user.email,
-                    'login_time': user.login_time,
-                    'applicant_id': user.applicant_id
-                },
-                'msg': 'succeed'
+                'id': user.id,
+                'username': user.username,
+                'email': user.email,
+                'login_time': user.login_time,
+                'applicant_id': user.applicant_id
             }
-        return result
-
+            return result;
+        if (result['error']):
+            result = {
+                'error': result['error']
+            }
+            return result, 401
         # abort(410, msg="找不到数据", data=None, status=0)
