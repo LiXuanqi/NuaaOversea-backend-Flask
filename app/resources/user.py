@@ -47,5 +47,5 @@ class Users(Resource):
             result = {
                 'error': result['error']
             }
-            return result, 401
+            return result
         # abort(410, msg="找不到数据", data=None, status=0)

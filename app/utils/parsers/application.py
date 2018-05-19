@@ -33,6 +33,13 @@ applications_get_parser.add_argument(
 application_post_parser = reqparse.RequestParser()
 
 application_post_parser.add_argument(
+    'token',
+    dest='token',
+    type=str,
+    required=True,
+)
+
+application_post_parser.add_argument(
     'applicant_id',
     dest='applicant_id',
     type=str,
@@ -94,6 +101,14 @@ application_post_parser.add_argument(
 application_put_parser = reqparse.RequestParser()
 
 application_put_parser.add_argument(
+    'token',
+    dest='token',
+    type=str,
+    required=True,
+)
+
+
+application_put_parser.add_argument(
     'applicant_id',
     dest='applicant_id',
     type=str,
@@ -147,5 +162,15 @@ application_put_parser.add_argument(
     'is_transfer',
     dest='is_transfer',
     type=bool,
+    required=True,
+)
+
+application_delete_parser = reqparse.RequestParser()
+
+application_delete_parser.add_argument(
+    'token',
+    dest='token',
+    type=str,
+    location='args',
     required=True,
 )

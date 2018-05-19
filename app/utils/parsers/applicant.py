@@ -16,8 +16,8 @@ from flask_restful import reqparse
 applicant_post_parser = reqparse.RequestParser()
 
 applicant_post_parser.add_argument(
-    'user_id',
-    dest='user_id',
+    'token',
+    dest='token',
     type=str,
     required=True,
 )
@@ -222,13 +222,14 @@ applicant_put_parser.add_argument(
     required=True,
 )
 
-applicant_put_parser.add_argument(
-    'email',
-    dest='email',
-    type=str,
-    required=False,
-)
 
+
+applicant_put_parser.add_argument(
+    'token',
+    dest='token',
+    type=str,
+    required=True,
+)
 # patch
 
 
@@ -319,7 +320,19 @@ applicant_patch_parser.add_argument(
 )
 
 applicant_patch_parser.add_argument(
-    'email',
-    dest='email',
+    'token',
+    dest='token',
     type=str,
+    required=True,
+)
+
+
+applicant_delete_parser = reqparse.RequestParser()
+
+applicant_delete_parser.add_argument(
+    'token',
+    dest='token',
+    type=str,
+    location='args',
+    required=True,
 )

@@ -51,9 +51,9 @@ class Auth():
             else:
                 raise jwt.InvalidTokenError
         except jwt.ExpiredSignatureError:
-            return "Token is expired."
+            return "Token 已过期."
         except jwt.InvalidTokenError:
-            return 'Invalid token.'
+            return '非法的 Token.'
 
     def authenticate(self, username, password):
         """
@@ -88,7 +88,7 @@ class Auth():
             user = User.get(User, payload['data']['id'])
             if (user is None):
                 result = {
-                    'error': 'user does not exist'
+                    'error': '用户不存在'
                 }
             else:
                 if (user.login_time == payload['data']['login_time']):
@@ -97,11 +97,10 @@ class Auth():
                     }
                 else:
                     result = {
-                        'error': 'token is expired'
+                        'error': 'token 已过期'
                     }
         else:
             result = {
-                'status': False,
-                'msg': payload
+                'error': payload
             }
         return result
