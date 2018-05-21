@@ -42,7 +42,7 @@ class Users(Resource):
                 'login_time': user.login_time,
                 'applicant_id': user.applicant_id
             }
-            return result;
+            return result
         if (result['error']):
             result = {
                 'error': result['error']
