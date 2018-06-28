@@ -15,7 +15,7 @@ from flask_restful import Resource, marshal_with, marshal
 
 from app.handler.applicant import get_all_applicants, create_applicant, patch_applicant
 from app.handler.applicant import get_applicant_by_id, update_applicant, rm_applicant
-from app.utils.auths import login_required
+from app.utils.auths import login_required, decode_user_id
 from app.utils.fields.applicant import applicants_fields, applicant_detail_fields
 from app.utils.fields.common import deleted_fields
 from app.utils.parsers.applicant import applicant_post_parser, applicant_put_parser, applicant_patch_parser, \
@@ -24,40 +24,31 @@ from app.utils.parsers.applicant import applicant_post_parser, applicant_put_par
 
 class Applicants(Resource):
     @marshal_with(applicants_fields)
-    @login_required
     def get(self):
         applicants = get_all_applicants()
         return {'applicants': applicants}
-
+    @login_required
     def post(self):
         applicant_args = applicant_post_parser.parse_args()
-        result = Auth.identify(Auth, applicant_args['token'])
-
-        if ('error' in result.keys()):
-            result = {
-                'error': result['error']
-            }
-            return result
-
-        if ('user_id' in result.keys()):
-            result = create_applicant(
-                result['user_id'],
-                applicant_args.college,
-                applicant_args.major,
-                applicant_args.gpa,
-                applicant_args.language_type,
-                applicant_args.language_reading,
-                applicant_args.language_listening,
-                applicant_args.language_speaking,
-                applicant_args.language_writing,
-                applicant_args.gre_verbal,
-                applicant_args.gre_quantitative,
-                applicant_args.gre_writing,
-                applicant_args.research_id,
-                applicant_args.project_id,
-                applicant_args.recommendation_id
-            )
-            return result
+        user_id = decode_user_id()
+        result = create_applicant(
+            user_id,
+            applicant_args.college,
+            applicant_args.major,
+            applicant_args.gpa,
+            applicant_args.language_type,
+            applicant_args.language_reading,
+            applicant_args.language_listening,
+            applicant_args.language_speaking,
+            applicant_args.language_writing,
+            applicant_args.gre_verbal,
+            applicant_args.gre_quantitative,
+            applicant_args.gre_writing,
+            applicant_args.research_id,
+            applicant_args.project_id,
+            applicant_args.recommendation_id
+        )
+        return result
 
 
 class Applicant(Resource):
@@ -70,78 +61,60 @@ class Applicant(Resource):
         else:
             return marshal(result, applicant_detail_fields), 200
 
-    # TODO: update the application.
+    @login_required
     def put(self, applicant_id):
 
         applicant_args = applicant_put_parser.parse_args()
-        result = Auth.identify(Auth, applicant_args['token'])
 
-        if ('error' in result.keys()):
-            result = {
-                'error': result['error']
-            }
-            return result
+        result = update_applicant(
+            applicant_id,
+            applicant_args.college,
+            applicant_args.major,
+            applicant_args.gpa,
+            applicant_args.language_type,
+            applicant_args.language_reading,
+            applicant_args.language_listening,
+            applicant_args.language_speaking,
+            applicant_args.language_writing,
+            applicant_args.gre_verbal,
+            applicant_args.gre_quantitative,
+            applicant_args.gre_writing,
+            applicant_args.research_id,
+            applicant_args.project_id,
+            applicant_args.recommendation_id
+        )
 
-        if ('user_id' in result.keys()):
-            result = update_applicant(
-                applicant_id,
-                applicant_args.college,
-                applicant_args.major,
-                applicant_args.gpa,
-                applicant_args.language_type,
-                applicant_args.language_reading,
-                applicant_args.language_listening,
-                applicant_args.language_speaking,
-                applicant_args.language_writing,
-                applicant_args.gre_verbal,
-                applicant_args.gre_quantitative,
-                applicant_args.gre_writing,
-                applicant_args.research_id,
-                applicant_args.project_id,
-                applicant_args.recommendation_id
-            )
+        return result
 
-            return result
-
+    @login_required
     @marshal_with(deleted_fields)
     def delete(self, applicant_id):
         applicant_args = applicant_delete_parser.parse_args()
-        result = Auth.identify(Auth, applicant_args['token'])
-        if ('error' in result.keys()):
-            result = {
-                'error': result['error']
-            }
-            return result
-        if ('user_id' in result.keys()):
-            result = rm_applicant(applicant_id)
-            return result
 
+        result = rm_applicant(applicant_id)
+        return result
+
+    @login_required
     @marshal_with(applicant_detail_fields)
     def patch(self, applicant_id):
         args = applicant_patch_parser.parse_args()
-        result = Auth.identify(Auth, args['token'])
-        if ('error' in result.keys()):
-            result = {
-                'error': result['error']
-            }
-            return result
-        if ('user_id' in result.keys()):
-            result = patch_applicant(
-                applicant_id,
-                args.college,
-                args.major,
-                args.gpa,
-                args.language_type,
-                args.language_reading,
-                args.language_listening,
-                args.language_speaking,
-                args.language_writing,
-                args.gre_verbal,
-                args.gre_quantitative,
-                args.gre_writing,
-                args.research_id,
-                args.project_id,
-                args.recommendation_id
-            )
 
-            return result;
+        result = patch_applicant(
+            applicant_id,
+            args.college,
+            args.major,
+            args.gpa,
+            args.language_type,
+            args.language_reading,
+            args.language_listening,
+            args.language_speaking,
+            args.language_writing,
+            args.gre_verbal,
+            args.gre_quantitative,
+            args.gre_writing,
+            args.research_id,
+            args.project_id,
+            args.recommendation_id
+        )
+
+        return result;

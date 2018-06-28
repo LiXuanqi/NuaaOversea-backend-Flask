@@ -19,7 +19,7 @@ from app.handler.application import get_application_by_id, update_application, r
 from app.utils.fields.application import applications_fields, application_detail_fields
 from app.utils.parsers.application import application_post_parser, application_put_parser, applications_get_parser, \
     application_delete_parser
-
+from app.utils.auths import login_required
 
 class Applications(Resource):
     @marshal_with(applications_fields)
@@ -39,6 +39,7 @@ class Applications(Resource):
         applications = get_all_applications()
         return {'applications': applications}
 
+    @login_required
     def post(self):
         application_args = application_post_parser.parse_args()
         result = create_application(
@@ -59,6 +60,7 @@ class Application(Resource):
         application = get_application_by_id(application_id)
         return application
 
+    @login_required
     def put(self, application_id):
         application_args = application_put_parser.parse_args()
         result = update_application(
@@ -74,6 +76,7 @@ class Application(Resource):
         )
         return result
 
+    @login_required
     def delete(self, application_id):
 
         application_args = application_delete_parser.parse_args()

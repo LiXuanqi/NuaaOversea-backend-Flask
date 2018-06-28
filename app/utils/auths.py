@@ -104,6 +104,9 @@ def identify(auth_token):
         }
     return result
 
+def decode_user_id():
+    payload = decode_auth_token(request.headers['Token'])
+    return payload['data']['id']
 
 def login_required(func):
     @functools.wraps(func)
