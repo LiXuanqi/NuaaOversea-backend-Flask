@@ -12,20 +12,19 @@
 
 
 from flask_restful import Resource, marshal_with, marshal
-#
-from app.auth.auths import Auth
+
 from app.handler.applicant import get_all_applicants, create_applicant, patch_applicant
 from app.handler.applicant import get_applicant_by_id, update_applicant, rm_applicant
-
-from app.utils.fields.common import deleted_fields
+from app.utils.auths import login_required
 from app.utils.fields.applicant import applicants_fields, applicant_detail_fields
-
+from app.utils.fields.common import deleted_fields
 from app.utils.parsers.applicant import applicant_post_parser, applicant_put_parser, applicant_patch_parser, \
     applicant_delete_parser
 
 
 class Applicants(Resource):
     @marshal_with(applicants_fields)
+    @login_required
     def get(self):
         applicants = get_all_applicants()
         return {'applicants': applicants}

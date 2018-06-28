@@ -11,8 +11,10 @@
 """
 
 from flask_restful import Resource
+
+from app.utils.auths import authenticate
 from app.utils.parsers.token import login_post_parser
-from app.auth.auths import Auth
+
 
 class Tokens(Resource):
     def post(self):
@@ -22,4 +24,4 @@ class Tokens(Resource):
         """
         args = login_post_parser.parse_args()
 
-        return Auth.authenticate(Auth, args['username'], args['password'])
+        return authenticate(args['username'], args['password'])

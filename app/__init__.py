@@ -1,5 +1,5 @@
 import click
-from flask import Flask
+from flask import Flask, request
 from flask.cli import with_appcontext
 from flask_restful import Api
 from config import Config
@@ -37,30 +37,36 @@ def create_app(test_config=None):
     # init db
     db.init_app(app)
 
+    # Handle request.
+    @app.before_request
+    def before_request():
+        print(request.headers)
+
     # init RESTful api
-    api = Api()
 
-    api.add_resource(Applications, Config.ROOT_URL + '/applications')
-    api.add_resource(Application, Config.ROOT_URL + '/applications/<application_id>')
+    api = Api(app, prefix=Config.ROOT_URL)
 
-    api.add_resource(Applicants, Config.ROOT_URL + '/applicants')
-    api.add_resource(Applicant, Config.ROOT_URL + '/applicants/<applicant_id>')
+    api.add_resource(Applications, '/applications')
+    api.add_resource(Application, '/applications/<application_id>')
 
-    api.add_resource(Tokens, Config.ROOT_URL + '/tokens')
+    api.add_resource(Applicants, '/applicants')
+    api.add_resource(Applicant, '/applicants/<applicant_id>')
 
-    api.add_resource(Users, Config.ROOT_URL + '/users')
+    api.add_resource(Tokens, '/tokens')
 
-    api.add_resource(ApplicationSearch, Config.ROOT_URL + '/search/applications')
+    api.add_resource(Users, '/users')
 
-    api.add_resource(Tags, Config.ROOT_URL + '/tags')
+    api.add_resource(ApplicationSearch, '/search/applications')
 
-    api.add_resource(Countries, Config.ROOT_URL + '/countries')
+    api.add_resource(Tags, '/tags')
 
-    api.add_resource(Recommendations, Config.ROOT_URL + '/recommendations')
+    api.add_resource(Countries, '/countries')
 
-    api.add_resource(Researches, Config.ROOT_URL + '/researches')
+    api.add_resource(Recommendations, '/recommendations')
 
-    api.add_resource(Projects, Config.ROOT_URL + '/projects')
+    api.add_resource(Researches, '/researches')
+
+    api.add_resource(Projects, '/projects')
 
     api.init_app(app)
 
@@ -120,19 +126,7 @@ def init_db():
     db.session.add(Country(id=9, name="新加坡"))
 
     db.session.commit()
-#
-# errors = {
-#     'UserAlreadyExistsError': {
-#         'message': "A user with that username already exists.",
-#         'status': 409,
-#     },
-#     'ResourceDoesNotExist': {
-#         'message': "A resource with that ID no longer exists.",
-#         'status': 410,
-#         'extra': "Any extra information you want.",
-#     },
-# }
-# api = Api(app, catch_all_404s=True, errors=errors)
+
 
 
 # https://api.github.com/search/repositories?q=tetris+language:assembly&sort=stars&order=desc

@@ -9,11 +9,15 @@
     author: 1_x7 <lixuanqi1995@gmail.com> <http://lixuanqi.github.io>
 
 """
-from flask_restful import Resource, abort
-from app.models import User
+from flask_restful import Resource
+
 from app.handler.user import register_user
+from app.models import User
+from app.utils.auths import identify
+
 from app.utils.parsers.user import user_post_parser, user_get_parser
-from app.auth.auths import Auth
+
+
 class Users(Resource):
     def post(self):
         """
@@ -32,7 +36,7 @@ class Users(Resource):
         """
 
         args = user_get_parser.parse_args()
-        result = Auth.identify(Auth, args['token'])
+        result = identify(args['token'])
         if (result['user_id']):
             user = User.get(User, result['user_id'])
             result = {
