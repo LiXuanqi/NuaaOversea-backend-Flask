@@ -9,6 +9,7 @@
     author: 1_x7 <lixuanqi1995@gmail.com> <http://lixuanqi.github.io>
 
 """
+from flask_restful import abort
 
 from app.models import Application, Tag, Applicant
 
@@ -85,10 +86,42 @@ def update_application(application_id, country_id, university, major, degree, te
         'id': application.id
     }
 
+def patch_application(application_id, country_id, university, major, degree, term, result, applicant_id, is_transfer):
+
+    application = Application.query.filter_by(id=application_id).first();
+    if country_id is not None:
+        application.country_id = country_id
+    if university is not None:
+        application.university = university
+    if major is not None:
+        application.major = major
+    if degree is not None:
+        application.degree = degree
+    if term is not None:
+        application.term = term
+    if result is not None:
+        application.result = result
+    if applicant_id is not None:
+        application.applicant_id = applicant_id
+    if is_transfer is not None:
+        # delete "is_transfer" tag.
+        transfer_tag = Tag.query.filter_by(name="转专业").first()
+        if is_transfer is False:
+            application.tags.remove(transfer_tag)
+        else:
+            application.tags.append(transfer_tag)
+
+    db.session.commit()
+
+    return application
+
+
 def rm_application(application_id):
     application = Application.query.filter_by(id=application_id).first()
     if application is not None:
         db.session.delete(application)
         db.session.commit()
         return True
+    else:
+        abort(404, error="案例不存在")
 

@@ -10,14 +10,15 @@
 
 """
 
-from flask_restful import Resource, marshal_with
+from flask_restful import Resource, marshal_with, abort
 
 from app.handler.application import get_all_applications, create_application, get_applications_by_applicantid, \
-    get_applications_by_university
+    get_applications_by_university, patch_application
 from app.handler.application import get_application_by_id, update_application, rm_application
 
 from app.utils.fields.application import applications_fields, application_detail_fields
-from app.utils.parsers.application import application_post_parser, application_put_parser, applications_get_parser
+from app.utils.parsers.application import application_post_parser, application_put_parser, applications_get_parser, \
+    application_patch_parser
 from app.utils.auths import login_required
 
 class Applications(Resource):
@@ -51,7 +52,7 @@ class Applications(Resource):
             application_args.applicant_id,
             application_args.is_transfer
         )
-        return result
+        return result, 201
 
 class Application(Resource):
     @marshal_with(application_detail_fields)
@@ -73,11 +74,33 @@ class Application(Resource):
             application_args.applicant_id,
             application_args.is_transfer
         )
-        return result
+        return result, 201
+
+
+    @login_required
+    @marshal_with(application_detail_fields)
+    def patch(self, application_id):
+        application_args = application_patch_parser.parse_args()
+
+        result = patch_application(
+            application_id,
+            application_args.country_id,
+            application_args.university,
+            application_args.major,
+            application_args.degree,
+            application_args.term,
+            application_args.result,
+            application_args.applicant_id,
+            application_args.is_transfer
+        )
+
+        return result, 201
 
     @login_required
     def delete(self, application_id):
         result = rm_application(application_id)
         if result is True:
-            return ''
+            return "", 204
+        else:
+            abort(403, error="删除案例失败")
 
