@@ -17,7 +17,7 @@ def encode_auth_token(user_id, login_time):
     """
     try:
         payload = {
-            'exp': datetime.datetime.utcnow() + datetime.timedelta(days=0, seconds=10),
+            'exp': datetime.datetime.utcnow() + datetime.timedelta(seconds=7200),
             'iat': datetime.datetime.utcnow(),
             'iss': 'ken',
             'data': {
@@ -45,7 +45,7 @@ def decode_auth_token(auth_token):
             auth_token,
             Config.TOKEN_SECRET_KEY,
             options={
-                'verify_exp': False
+                'verify_exp': True
             }
         )
 

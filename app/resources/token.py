@@ -9,7 +9,6 @@
     author: 1_x7 <lixuanqi1995@gmail.com> <http://lixuanqi.github.io>
 
 """
-
 from flask_restful import Resource
 
 from app.utils.auths import authenticate
@@ -17,6 +16,7 @@ from app.utils.parsers.token import login_post_parser
 
 
 class Tokens(Resource):
+
     def post(self):
         """
         User login.
