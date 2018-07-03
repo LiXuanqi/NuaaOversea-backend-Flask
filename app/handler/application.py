@@ -106,10 +106,13 @@ def patch_application(application_id, country_id, university, major, degree, ter
     if is_transfer is not None:
         # delete "is_transfer" tag.
         transfer_tag = Tag.query.filter_by(name="转专业").first()
+        print(application.tags)
         if is_transfer is False:
-            application.tags.remove(transfer_tag)
+            if transfer_tag in application.tags:
+                application.tags.remove(transfer_tag)
         else:
-            application.tags.append(transfer_tag)
+            if transfer_tag not in application.tags:
+                application.tags.append(transfer_tag)
 
     db.session.commit()
 
