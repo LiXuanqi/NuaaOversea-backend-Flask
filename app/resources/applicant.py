@@ -18,8 +18,7 @@ from app.handler.applicant import get_applicant_by_id, update_applicant, rm_appl
 from app.utils.auths import login_required, decode_user_id
 from app.utils.fields.applicant import applicants_fields, applicant_detail_fields
 from app.utils.fields.common import deleted_fields
-from app.utils.parsers.applicant import applicant_post_parser, applicant_put_parser, applicant_patch_parser, \
-    applicant_delete_parser
+from app.utils.parsers.applicant import applicant_post_parser, applicant_put_parser, applicant_patch_parser
 
 
 class Applicants(Resource):
@@ -89,8 +88,6 @@ class Applicant(Resource):
     @login_required
     @marshal_with(deleted_fields)
     def delete(self, applicant_id):
-        applicant_args = applicant_delete_parser.parse_args()
-
         result = rm_applicant(applicant_id)
         return result
 
@@ -98,7 +95,6 @@ class Applicant(Resource):
     @marshal_with(applicant_detail_fields)
     def patch(self, applicant_id):
         args = applicant_patch_parser.parse_args()
-
         result = patch_applicant(
             applicant_id,
             args.college,
@@ -116,5 +112,4 @@ class Applicant(Resource):
             args.project_id,
             args.recommendation_id
         )
-
         return result;

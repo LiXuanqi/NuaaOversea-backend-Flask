@@ -33,13 +33,6 @@ applications_get_parser.add_argument(
 application_post_parser = reqparse.RequestParser()
 
 application_post_parser.add_argument(
-    'token',
-    dest='token',
-    type=str,
-    required=True,
-)
-
-application_post_parser.add_argument(
     'applicant_id',
     dest='applicant_id',
     type=str,
@@ -209,12 +202,3 @@ application_patch_parser.add_argument(
     type=bool
 )
 
-application_delete_parser = reqparse.RequestParser()
-
-application_delete_parser.add_argument(
-    'token',
-    dest='token',
-    type=str,
-    location='args',
-    required=True,
-)
