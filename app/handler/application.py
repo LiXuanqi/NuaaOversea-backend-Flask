@@ -45,10 +45,15 @@ def create_application(country_id, university, major, degree, term, result, appl
     # Auto Tag
     applicant = Applicant.query.filter_by(id=applicant_id).first()
     # FIXME : if language_type is not toefl.
-    toefl = applicant.language_reading + applicant.language_listening + applicant.language_speaking + applicant.language_writing
+    toefl = None
+    ielts = None
+    if applicant.language_type == "TOEFL":
+        toefl = applicant.language_reading + applicant.language_listening + applicant.language_speaking + applicant.language_writing
+    else:
+        ielts = (applicant.language_reading + applicant.language_listening + applicant.language_speaking + applicant.language_writing) / 4
     gre = applicant.gre_quantitative + applicant.gre_verbal
     gpa = applicant.gpa
-    new_tags = auto_tags(gre, gpa, is_transfer, toefl)
+    new_tags = auto_tags(gre, gpa, is_transfer, toefl, ielts)
     application.tags.extend(new_tags)
     db.session.add(application)
     db.session.commit()
