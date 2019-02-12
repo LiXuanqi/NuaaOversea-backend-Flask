@@ -8,7 +8,7 @@ Provide students with data and similar cases for reference and help them make mo
 
 Created with ❤️
 
-This repository stores the code for backend. You can visit the frontend code [here].(https://github.com/LiXuanqi/NuaaOversea-frontend-React)
+This repository stores the code for backend. You can visit the frontend code [here](https://github.com/LiXuanqi/NuaaOversea-frontend-React)
 
 ## Getting Started
 
