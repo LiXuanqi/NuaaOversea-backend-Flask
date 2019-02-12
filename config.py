@@ -4,11 +4,11 @@ env = os.environ
 class Config(object):
     ############### YOU SHOULD CONFIGURE ###############
 
-    DB_USER = env['DB_USER']
-    DB_PASSWORD = env['DB_PASSWORD']
-    DB_DATABASE = env['DB_DATABASE']
-    DB_URL = 'db:3306'
-    ROOT_URL = env['ROOT_URL']
+    DB_USER = "root"
+    DB_PASSWORD = "root"
+    DB_DATABASE = "nuaaoversea"
+    DB_URL = '127.0.0.1:3306'
+    ROOT_URL = ""
 
     #####################################################
     SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://{0}:{1}@{2}/{3}?charset=utf8'.format(
