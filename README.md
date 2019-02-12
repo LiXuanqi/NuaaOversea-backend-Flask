@@ -1,8 +1,12 @@
 # NuaaOversea-backend-Flask
 
+![](https://img.shields.io/github/license/LiXuanqi/NuaaOversea-backend-Flask.svg?style=flat)
+
 NuaaOversea is a studying aboard information sharing platform, which collects information about the admission of students from [NUAA](http://iao.nuaa.edu.cn/) and students' GPA, Language score(TOEFL, IELTS), GRE, etc. 
 
 Provide students with data and similar cases for reference and help them make more informed decisions.
+
+Created with ❤️
 
 This repository stores the code for backend. You can visit the frontend code [here].(https://github.com/LiXuanqi/NuaaOversea-frontend-React)
 
